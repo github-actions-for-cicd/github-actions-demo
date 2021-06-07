@@ -1,5 +1,5 @@
 name: A workflow for my Hello World file
-on: push
+on: [repository_dispatch]
 jobs:
   build:
     name: Hello world action
@@ -7,3 +7,13 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: ./action-a
+      - name: Event Information
+        run: |
+          echo "Event '${{ github.event.action }}' recieved from '${{github.event.client_payload.repository }}'"
+      - name: Return back to the original repo
+        if: github.event.action == 'ping'
+        run: |
+          curl -X POST https://api.github.com/repos/dev0701/github_actions_and_apps_demo/dispatches \
+          -u ${{ secrets.WORKFLOW_SECRET }} \
+          --data '{"event_type: "return", client_payload": {"repository": "'"$GITHUB_REPOSITORY"'" }}'
+      
