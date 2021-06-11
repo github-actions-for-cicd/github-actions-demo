@@ -1,10 +1,16 @@
 name: A workflow for my Hello World file
-on: [repository_dispatch]
+on: push
 jobs:
   build:
     name: Hello world action
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - name: Scan valid yaml with kube-linter
+        uses: stackrox/kube-linter-action@v1.0.2
+        with:
+          directory: action-a
+          config: sample/.kube-linter-config.yaml
       - uses: actions/checkout@v1
       - uses: ./action-a
       - name: Event Information
@@ -18,3 +24,4 @@ jobs:
           -u ${{ secrets.WORKFLOW_SECRET }} \
           --data '{"event_type": "return", "client_payload": {"repository": "'"$GITHUB_REPOSITORY"'" }}'
       
+
