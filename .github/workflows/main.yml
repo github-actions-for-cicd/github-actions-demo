@@ -10,7 +10,6 @@ jobs:
         uses: stackrox/kube-linter-action@v1.0.2
         with:
           directory: action-a
-          config: sample/.kube-linter-config.yaml
       - uses: actions/checkout@v1
       - uses: ./action-a
       - name: Event Information
