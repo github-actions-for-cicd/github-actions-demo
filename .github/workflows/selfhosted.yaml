@@ -50,7 +50,7 @@ jobs:
     name: Save the log as an artifact if linting errors exist
     needs: run-kube-linter
     runs-on: [self-hosted]     
-    if: needs.run-kube-linter.result == 'failure'
+    if: always() && (needs.run-kube-linter.result == 'failure')
     steps:   
       - name: Upload log file
         uses: actions/upload-artifact@v2
