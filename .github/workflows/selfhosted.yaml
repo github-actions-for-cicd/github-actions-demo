@@ -37,5 +37,4 @@ jobs:
           directory: sample/valid-yaml
       - shell: bash
         run: |
-          ls
           echo kubelinter.log
