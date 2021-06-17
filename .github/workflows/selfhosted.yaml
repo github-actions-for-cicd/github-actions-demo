@@ -35,6 +35,11 @@ jobs:
         uses: stackrox/kube-linter-action@v1.0.2
         with:
           directory: sample/invalid-yaml
+          
+  print-log :
+    name: Print the linter log file
+    runs-on: [self-hosted]     
+    steps:   
       - shell: bash
         run: |
-          cat kubelinter.log
+             cat kubelinter.log
