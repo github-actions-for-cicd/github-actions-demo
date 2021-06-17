@@ -1,5 +1,5 @@
 name: A workflow for my Hello World file
-on: push
+on: []
 jobs:
   install-runner:
     runs-on: ubuntu-20.04
