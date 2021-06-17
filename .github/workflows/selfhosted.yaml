@@ -1,7 +1,9 @@
 name: A workflow for my Hello World file
 on: 
+ push:
+  branches: [main]
  pull_request:
-  branches: [master]
+  branches: [main]
 jobs:
   install-runner:
     runs-on: ubuntu-20.04
