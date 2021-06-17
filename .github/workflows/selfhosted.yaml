@@ -37,7 +37,7 @@ jobs:
       - name: Scan valid yaml with kube-linter
         uses: stackrox/kube-linter-action@v1.0.2
         with:
-          directory: sample/invalid-yaml
+          directory: sample/valid-yaml
           
   print-log :
     name: Print the linter log file
