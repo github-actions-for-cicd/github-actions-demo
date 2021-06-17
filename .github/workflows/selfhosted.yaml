@@ -1,9 +1,9 @@
 name: A workflow for my Hello World file
-on: []
+on: [push]
 jobs:
   install-runner:
     runs-on: ubuntu-20.04
-    name: Install runner
+    name: Install runner on openshift cluster
     steps:
       - name: Authenticate
         uses: redhat-actions/oc-login@v1
@@ -27,7 +27,7 @@ jobs:
           helm: "latest"
 
   self-hosted-workflow :
-    name: Running on OpenShift runner
+    name: Running Kube-Linter on a set of .yaml files
     runs-on: [self-hosted]
     steps:      
       - uses: actions/checkout@v2
@@ -35,3 +35,6 @@ jobs:
         uses: stackrox/kube-linter-action@v1.0.2
         with:
           directory: sample/valid-yaml
+      - shell: bash
+        run: |
+          ls
