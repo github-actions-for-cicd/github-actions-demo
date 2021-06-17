@@ -26,7 +26,7 @@ jobs:
           oc: "3"
           helm: "latest"
 
-  self-hosted-workflow :
+  run-kube-linter :
     name: Running Kube-Linter on a set of .yaml files
     runs-on: [self-hosted]
     steps:      
@@ -38,8 +38,21 @@ jobs:
           
   print-log :
     name: Print the linter log file
+    needs: run-kube-linter
     runs-on: [self-hosted]     
     steps:   
       - shell: bash
         run: |
              cat kubelinter.log
+
+  save-log-if-kubelinter-fails :
+    name: Save the log as an artifact if linting errors exist
+    runs-on: [self-hosted]     
+    if: needs.run-kube-linter.result == 'failure'
+    steps:   
+      - name: Upload log file
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'Kube-linter log'
+          path: kubelinter.log
+          
