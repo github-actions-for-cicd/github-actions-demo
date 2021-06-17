@@ -28,6 +28,7 @@ jobs:
 
   run-kube-linter :
     name: Running Kube-Linter on a set of .yaml files
+    needs: install-runner
     runs-on: [self-hosted]
     steps:      
       - uses: actions/checkout@v2
@@ -47,6 +48,7 @@ jobs:
 
   save-log-if-kubelinter-fails :
     name: Save the log as an artifact if linting errors exist
+    needs: run-kube-linter
     runs-on: [self-hosted]     
     if: needs.run-kube-linter.result == 'failure'
     steps:   
