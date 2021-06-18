@@ -71,5 +71,5 @@ jobs:
           name: 'Kube-linter log'
       - name: Checkout repo
         uses: actions/checkout@v1
-      - name: Run custom action to check python version
+      - name: Run custom action to install python
         uses: ./action-a
