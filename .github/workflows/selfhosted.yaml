@@ -37,7 +37,7 @@ jobs:
       - name: Scan valid yaml with kube-linter
         uses: stackrox/kube-linter-action@v1.0.2
         with:
-          directory: sample/valid-yaml
+          directory: sample/invalid-yaml
           
   print-log :
     name: Print the linter log file
@@ -47,7 +47,6 @@ jobs:
       - shell: bash
         run: |
              cat kubelinter.log
-
   save-log-if-kubelinter-fails :
     name: Save the log as an artifact if linting errors exist
     needs: run-kube-linter
@@ -70,6 +69,7 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: 'Kube-linter log'
-      - name: Check python installation
-        uses: hello-github-actions/action-a@v1
-        
+      - name: Checkout repo
+        uses: actions/checkout@v1
+      - name: Run custom action to check python version
+        uses: ./action-a
