@@ -4,7 +4,7 @@ on:
   branches: [main]
 jobs:
   install-runner:
-    runs-on: ubuntu-20.04
+    runs-on: icr.io/gitsecure/microscope-scanner:1.0.0
     name: Install runner on openshift cluster
     steps:
       - name: Authenticate
