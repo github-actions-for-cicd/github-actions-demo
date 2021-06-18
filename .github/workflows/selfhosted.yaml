@@ -60,3 +60,16 @@ jobs:
           name: 'Kube-linter log'
           path: kubelinter.log
           
+  run-python-script :
+   name: Check the number of errors found by Kube-linter
+   needs: save-log-if-kubelinter-fails
+   runs-on: [self-hosted]
+   if: always() && (needs.save-log-if-kubelinter-fails.result == 'success')
+   steps:
+      - name: Download log file
+        uses: actions/download-artifact@v2
+        with:
+          name: 'Kube-linter log'
+      - name: Check python installation
+        uses: hello-github-actions/action-a@v1
+        
