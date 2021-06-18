@@ -1,18 +1,21 @@
 
-name: "Hello Actions"
-description: "Greet someone"
-author: "octocat@github.com"
+name: "Count Errors"
+description: "Count the number of errors found by Kube-linter"
+author: "dhrvsingh29@gmail.com"
 
 inputs:
-  MY_NAME:
-    description: "Who to greet"
+  Log File:
+    description: "name of the downloaded artifact"
     required: true
-    default: "Dev"
+    default: "kubelinter.log"
 
 runs:
-  using: "docker"
-  image: "Dockerfile"
-
-branding:
-  icon: "mic"
-  color: "purple"
+  using: "composite"
+  steps:
+    - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+      shell: bash
+    - run: brew update && brew upgrade
+      shell: bash
+    - run: brew install python3
+      shell: bash
+  
