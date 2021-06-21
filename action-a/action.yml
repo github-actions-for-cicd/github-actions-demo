@@ -12,10 +12,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - run: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+    - run: python --version
       shell: bash
-    - run: brew update && brew upgrade
-      shell: bash
-    - run: brew install python3
-      shell: bash
-  
+   
