@@ -21,13 +21,13 @@ jobs:
         uses: redhat-actions/openshift-actions-runner-installer@v1
         with:
           github_pat: ${{ secrets.PAT }}
+          runner_image: icr.io/gitsecure/microscope-scanner:1.0.0
       - name: Install CLI tools from OpenShift Mirror
         uses: redhat-actions/openshift-tools-installer@v1
         with:
           source: "mirror"
           oc: "3"
           helm: "latest"
-          runner_image: "icr.io/gitsecure/microscope-scanner:1.0.0" 
           
   run-kube-linter :
     name: Running Kube-Linter on a set of .yaml files
