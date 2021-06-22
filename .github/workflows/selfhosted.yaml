@@ -31,7 +31,7 @@ jobs:
   run-kube-linter :
     name: Running Kube-Linter on a set of .yaml files
     needs: install-runner-default
-    runs-on: [self-hosted,default-runner]
+    runs-on: [self-hosted]
     steps:      
       - uses: actions/checkout@v2
       - name: Scan valid yaml with kube-linter
