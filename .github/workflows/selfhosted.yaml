@@ -3,7 +3,7 @@ on:
  pull_request:
   branches: [main]
 jobs:
-  install-runner:
+  install-runner-default:
     runs-on: ubuntu-20.04
     name: Install runner on openshift cluster
     steps:
@@ -21,7 +21,31 @@ jobs:
         uses: redhat-actions/openshift-actions-runner-installer@v1
         with:
           github_pat: ${{ secrets.PAT }}
-          runner_image: icr.io/gitsecure/microscope-scanner:1.0.0
+      - name: Install CLI tools from OpenShift Mirror
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          source: "mirror"
+          oc: "3"
+          helm: "latest"
+  
+  install-runner-storage:
+    runs-on: ubuntu-20.04
+    name: Install storage runner on openshift cluster
+    steps:
+      - name: Authenticate
+        uses: redhat-actions/oc-login@v1
+        env:
+          OPENSHIFT_USER: ${{ secrets.OPENSHIFT_USER }}
+          OPENSHIFT_NAMESPACE: default
+        with:
+          openshift_server_url: ${{ secrets.OPENSHIFT_SERVER }}
+          openshift_token: ${{ secrets.OPENSHIFT_TOKEN }}
+          insecure_skip_tls_verify: true
+          namespace: default
+      - name: Install self hosted runner into this repository
+        uses: redhat-actions/openshift-actions-runner-installer@v1
+        with:
+          github_pat: ${{ secrets.PAT }}
       - name: Install CLI tools from OpenShift Mirror
         uses: redhat-actions/openshift-tools-installer@v1
         with:
@@ -31,8 +55,8 @@ jobs:
 
   run-kube-linter :
     name: Running Kube-Linter on a set of .yaml files
-    needs: install-runner
-    runs-on: [self-hosted]
+    needs: install-runner-default
+    runs-on: [self-hosted,default-runner]
     steps:      
       - uses: actions/checkout@v2
       - name: Scan valid yaml with kube-linter
