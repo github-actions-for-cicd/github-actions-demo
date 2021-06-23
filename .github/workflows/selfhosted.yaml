@@ -21,7 +21,8 @@ jobs:
         uses: redhat-actions/openshift-actions-runner-installer@v1
         with:
           github_pat: ${{ secrets.PAT }}
-          runner_image: icr.io/gitsecure/microscope-scanner:1.0.0
+          runner_image: icr.io/gitsecure/microscope-scanner
+          runner_tag: 1.0.0
       - name: Install CLI tools from OpenShift Mirror
         uses: redhat-actions/openshift-tools-installer@v1
         with:
