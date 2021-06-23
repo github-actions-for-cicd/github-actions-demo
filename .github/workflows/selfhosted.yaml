@@ -33,7 +33,7 @@ jobs:
   run-kube-linter :
     name: Running Kube-Linter on a set of .yaml files
     needs: install-runner-default
-    runs-on: [default-runner]
+    runs-on: [self-hosted]
     steps:      
       - uses: actions/checkout@v2
       - name: Scan valid yaml with kube-linter
@@ -44,15 +44,16 @@ jobs:
   print-log :
     name: Print the linter log file
     needs: run-kube-linter
-    runs-on: [default-runner]     
+    runs-on: [self-hosted]     
     steps:   
       - shell: bash
         run: |
              cat kubelinter.log
+             
   save-log-if-kubelinter-fails :
     name: Save the log as an artifact if linting errors exist
     needs: run-kube-linter
-    runs-on: [default-runner]     
+    runs-on: [self-hosted]     
     if: always() && (needs.run-kube-linter.result == 'failure')
     steps:   
       - name: Upload log file
