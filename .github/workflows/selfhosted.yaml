@@ -28,6 +28,34 @@ jobs:
           oc: "3"
           helm: "latest"
           
+  kubelinter-github-hosted :
+    runs-on: ubuntu-latest
+    steps:      
+      - uses: actions/checkout@v2
+      - name: Scan valid yaml with kube-linter
+        uses: stackrox/kube-linter-action@v1.0.2
+        with:
+          directory: sample/invalid-yaml
+      - name: Checkout
+        uses: actions/checkout@v2 
+      - name: Run CRDA and Convert to Sarif
+        uses: jduimovich/crda-sarif-poc@main 
+        with:
+          input-file-name: lubelinter.log
+          output-file-name: output.sarif
+      - name: CRDA Sarif View
+        run: |  
+          cat output.sarif  | jq 
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: output.sarif 
+      - name: Upload log file
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'Kube-linter log'
+          path: kubelinter.log 
+          
   run-kube-linter :
     name: Running Kube-Linter on a set of .yaml files
     needs: install-runner-default
