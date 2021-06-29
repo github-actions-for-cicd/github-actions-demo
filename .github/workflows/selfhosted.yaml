@@ -92,7 +92,8 @@ jobs:
       - name: Run CRDA and Convert to Sarif
         uses: jduimovich/crda-sarif-poc@main 
         with:
-          input-file-name: lubelinter.log
+          input-file-name: kubelinter.log
+          snyk-token: ${{ secrets.SNYK_TOKEN }}
           output-file-name: output.sarif
       - name: CRDA Sarif View
         run: |  
