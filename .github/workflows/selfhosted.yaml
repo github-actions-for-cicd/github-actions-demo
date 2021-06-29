@@ -44,6 +44,7 @@ jobs:
         uses: jduimovich/crda-sarif-poc@main 
         with:
           input-file-name: kubelinter.log
+          snyk-token: ${{ secrets.SNYK_TOKEN }}
           output-file-name: output.sarif
       - name: CRDA Sarif View
         if: always()
