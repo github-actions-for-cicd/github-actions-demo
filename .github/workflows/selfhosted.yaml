@@ -43,7 +43,7 @@ jobs:
         if: always()
         uses: jduimovich/crda-sarif-poc@main 
         with:
-          input-file-name: lubelinter.log
+          input-file-name: kubelinter.log
           output-file-name: output.sarif
       - name: CRDA Sarif View
         if: always()
