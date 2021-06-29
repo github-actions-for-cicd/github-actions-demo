@@ -59,7 +59,10 @@ jobs:
         with:
           name: 'Kube-linter log'
           path: kubelinter.log
-          
+      - name: upload sarif log
+        uses: github/codeql-action/upload-sari@v1
+        with: 
+          sarif_file: kubelinter.log
 #  run-python-script :
 #   name: Check the number of errors found by Kube-linter
 #   needs: save-log-if-kubelinter-fails
