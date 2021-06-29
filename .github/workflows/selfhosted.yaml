@@ -37,20 +37,25 @@ jobs:
         with:
           directory: sample/invalid-yaml
       - name: Checkout
+        if: always()
         uses: actions/checkout@v2 
       - name: Run CRDA and Convert to Sarif
+        if: always()
         uses: jduimovich/crda-sarif-poc@main 
         with:
           input-file-name: lubelinter.log
           output-file-name: output.sarif
       - name: CRDA Sarif View
+        if: always()
         run: |  
           cat output.sarif  | jq 
       - name: Upload result to GitHub Code Scanning
+        if: always()
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: output.sarif 
       - name: Upload log file
+        if: always()
         uses: actions/upload-artifact@v2
         with:
           name: 'Kube-linter log'
