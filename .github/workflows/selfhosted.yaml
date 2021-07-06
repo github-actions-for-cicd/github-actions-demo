@@ -28,49 +28,24 @@ jobs:
           oc: "3"
           helm: "latest"
           
-  kubelinter-github-hosted :
-    runs-on: ubuntu-latest
-    steps:      
-      - uses: actions/checkout@v2
-      - name: Scan valid yaml with kube-linter
-        uses: stackrox/kube-linter-action@v1.0.2
-        with:
-          directory: sample/invalid-yaml
-      - name: Checkout
-        if: always()
-        uses: actions/checkout@v2 
-      - name: Run CRDA and Convert to Sarif
-        if: always()
-        uses: jduimovich/crda-sarif-poc@main 
-        with:
-          input-file-name: kubelinter.log
-          output-file-name: output.sarif
-      - name: CRDA Sarif View
-        if: always()
-        run: |  
-          cat output.sarif  | jq 
-      - name: Upload result to GitHub Code Scanning
-        if: always()
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: output.sarif 
-      - name: Upload log file
-        if: always()
-        uses: actions/upload-artifact@v2
-        with:
-          name: 'Kube-linter log'
-          path: kubelinter.log 
-          
   run-kube-linter :
     name: Running Kube-Linter on a set of .yaml files
     needs: install-runner-default
     runs-on: [self-hosted]
     steps:      
       - uses: actions/checkout@v2
-      - name: Scan valid yaml with kube-linter
-        uses: stackrox/kube-linter-action@v1.0.2
+      - name: Lint Repository 
+        uses: jduimovich/kube-linter-action@main
         with:
           directory: sample/invalid-yaml
+          outputFile: kube-linter.sarif
+      - name: Show sarif
+        run: |  
+          cat kube-linter.sarif
+      - name: Upload result to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: kube-linter.sarif
          
   print-log :
     name: Print the linter log file
@@ -79,34 +54,8 @@ jobs:
     steps:   
       - shell: bash
         run: |
-             cat kubelinter.log
-             
-  save-log-if-kubelinter-fails :
-    name: Save the log as an artifact if linting errors exist
-    needs: run-kube-linter
-    runs-on: [self-hosted]     
-    if: always() && (needs.run-kube-linter.result == 'failure')
-    steps:   
-      - name: Checkout
-        uses: actions/checkout@v2 
-      - name: Run CRDA and Convert to Sarif
-        uses: jduimovich/crda-sarif-poc@main 
-        with:
-          input-file-name: kubelinter.log
-          snyk-token: ${{ secrets.SNYK_TOKEN }}
-          output-file-name: output.sarif
-      - name: CRDA Sarif View
-        run: |  
-          cat output.sarif  | jq 
-      - name: Upload result to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v1
-        with:
-          sarif_file: output.sarif 
-      - name: Upload log file
-        uses: actions/upload-artifact@v2
-        with:
-          name: 'Kube-linter log'
-          path: kubelinter.log
+             cat kubelinter.sarif
+
 #  run-python-script :
 #   name: Check the number of errors found by Kube-linter
 #   needs: save-log-if-kubelinter-fails
