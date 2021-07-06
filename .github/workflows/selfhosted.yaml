@@ -1,5 +1,6 @@
 name: A workflow for my Hello World file
 on:
+ push:
  pull_request:
   branches: [main]
 jobs:
@@ -31,7 +32,7 @@ jobs:
   run-kube-linter :
     name: Running Kube-Linter on a set of .yaml files
     needs: install-runner-default
-    runs-on: [self-hosted]
+    runs-on: ubuntu-20.04
     steps:      
       - uses: actions/checkout@v2
       - name: Lint Repository 
