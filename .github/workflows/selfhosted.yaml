@@ -40,9 +40,11 @@ jobs:
           directory: sample/invalid-yaml
           outputFile: kube-linter.sarif
       - name: Show sarif
+        if: always()
         run: |  
           cat kube-linter.sarif
       - name: Upload result to GitHub Code Scanning
+        if: always()
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: kube-linter.sarif
