@@ -41,7 +41,7 @@ jobs:
           node-version: '12'
       - uses: actions/checkout@v2
       - name: Lint Repository 
-        uses: github-actions-for-cdci/kube-linter-action@v1.0.2
+        uses: github-actions-for-cdci/kube-linter-action@main
         with:
           directory: sample/invalid-yaml
           output-file: kube-linter.sarif
