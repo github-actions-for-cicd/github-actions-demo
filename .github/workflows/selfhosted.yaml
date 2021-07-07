@@ -43,7 +43,7 @@ jobs:
       - name: Show sarif
         if: always()
         run: |  
-          cat kubelinter.raw-output
+          cat kubelinter.raw-output 
       - name: Upload result to GitHub Code Scanning 
         if: always()
         uses: github/codeql-action/upload-sarif@v1
