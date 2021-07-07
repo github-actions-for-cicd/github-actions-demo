@@ -44,7 +44,7 @@ jobs:
         uses: github-actions-for-cdci/kube-linter-action@v1.0.2
         with:
           directory: sample/invalid-yaml
-          outputFile: kube-linter.sarif
+          output-file: kube-linter.sarif
       - name: Show sarif
         if: always()
         run: |  
