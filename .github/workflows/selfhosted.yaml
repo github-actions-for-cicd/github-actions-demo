@@ -36,7 +36,7 @@ jobs:
     steps:      
       - uses: actions/checkout@v2
       - name: Lint Repository 
-        uses: jduimovich/kube-linter-action@main
+        uses: gitub-actions-demo/kube-linter-action@main
         with:
           directory: sample/invalid-yaml
           outputFile: kube-linter.sarif
@@ -53,11 +53,11 @@ jobs:
   print-log :
     name: Print the linter log file
     needs: run-kube-linter
-    runs-on: [self-hosted]     
+    runs-on: ubuntu-20.04     
     steps:   
       - shell: bash
         run: |
-             cat kubelinter.sarif
+             cat kube-linter.sarif
 
 #  run-python-script :
 #   name: Check the number of errors found by Kube-linter
