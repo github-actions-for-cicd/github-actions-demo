@@ -48,12 +48,12 @@ jobs:
       - name: Show sarif
         if: always()
         run: |  
-          cat kubelinter.raw-output
+          cat output.sarif
       - name: Upload result to GitHub Code Scanning 
         if: always()
         uses: github/codeql-action/upload-sarif@v1
         with:
-          sarif_file: kube-linter.sarif
+          sarif_file: output.sarif
          
   print-log :
     name: Print the linter log file
@@ -62,7 +62,7 @@ jobs:
     steps:   
       - shell: bash
         run: |
-             cat kubelinter.sarif
+             cat output.sarif
 
 #  run-python-script :
 #   name: Check the number of errors found by Kube-linter
