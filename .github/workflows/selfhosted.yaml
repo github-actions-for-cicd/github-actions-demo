@@ -30,7 +30,7 @@ jobs:
           helm: "latest"
           
   run-kube-linter :
-    name: Running Kube-Linter on a set of .yaml file without .js conversion
+    name: Running Kube-Linter on a set of .yaml file with .js conversion
     needs: install-runner-default
     runs-on: [self-hosted]
     steps:      
