@@ -30,7 +30,7 @@ jobs:
           helm: "latest"
           
   run-kube-linter :
-    name: Running Kube-Linter on a set of .yaml files
+    name: Running Kube-Linter on a set of .yaml files 
     needs: install-runner-default
     runs-on: [self-hosted]
     steps:      
