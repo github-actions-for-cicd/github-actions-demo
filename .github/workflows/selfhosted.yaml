@@ -36,14 +36,14 @@ jobs:
     steps:      
       - uses: actions/checkout@v2
       - name: Lint Repository 
-        uses: jduimovich/kube-linter-action@main
+        uses: github-actions-for-cdci/kube-linter-action@main
         with:
           directory: sample/invalid-yaml
           outputFile: kube-linter.sarif
       - name: Show sarif
         if: always()
         run: |  
-          cat kube-linter.sarif
+          cat kubelinter.raw-output
       - name: Upload result to GitHub Code Scanning 
         if: always()
         uses: github/codeql-action/upload-sarif@v1
