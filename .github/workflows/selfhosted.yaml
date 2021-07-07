@@ -36,7 +36,7 @@ jobs:
     steps:      
       - uses: actions/checkout@v2
       - name: Lint Repository 
-        uses: jduimovich/kube-linter-action@main
+        uses: github-actions-for-cdci/kube-linter-action@main
         with:
           directory: sample/invalid-yaml
           outputFile: kube-linter.sarif
