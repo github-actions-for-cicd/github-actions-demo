@@ -54,7 +54,7 @@ jobs:
           sarif_file: output.sarif
          
   print-log :
-    name: Print the linter log file
+    name: Print the linter log file in action
     needs: run-kube-linter
     runs-on: [self-hosted]     
     steps:   
