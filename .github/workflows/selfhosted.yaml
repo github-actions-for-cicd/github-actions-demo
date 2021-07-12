@@ -54,13 +54,18 @@ jobs:
         with:
           sarif_file: output.sarif
          
-  print-log :
+  upload and print-log :
     name: Print the linter log file
     needs: run-kube-linter
     runs-on: [self-hosted]     
-    steps:   
-      - shell: bash
-        run: |
+    steps:
+       - name: Upload log file
+         uses: actions/upload-artifact@v2
+         with:
+          name: 'Kube-linter log'
+          path: output.sarif
+       - shell: bash
+         run: |
              cat output.sarif
 
 #  run-python-script :
