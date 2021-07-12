@@ -42,7 +42,7 @@ jobs:
       - name: Lint Repository 
         uses: github-actions-for-cicd/custom-kube-linter-action@main
         with:
-          directory: sample/invalid-yaml
+          directory: sample/valid-yaml
           output-file: output.sarif
       - name: Show sarif
         if: always()
