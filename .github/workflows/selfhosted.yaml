@@ -20,14 +20,9 @@ jobs:
         uses: redhat-actions/openshift-actions-runner-installer@v1
         with:
           github_pat: ${{ secrets.PAT }}
-      - name: Install CLI tools from OpenShift Mirror
-        uses: redhat-actions/openshift-tools-installer@v1
-        with:
-          source: "mirror"
-          oc: "3"
-          helm: "latest"
           
   run-kube-linter :
+    
     name: Running Kube-linter
     needs: install-runner-default
     runs-on: [self-hosted]
@@ -37,6 +32,12 @@ jobs:
 #        uses: actions/setup-node@v2
 #        with:
 #          node-version: '12'
+      - name: Install CLI tools from OpenShift Mirror
+        uses: redhat-actions/openshift-tools-installer@v1
+        with:
+          source: "mirror"
+          oc: "3"
+          helm: "latest"
       - uses: actions/checkout@v2
       - name: Lint Repository 
         uses: github-actions-for-cicd/custom-kube-linter-action@main
