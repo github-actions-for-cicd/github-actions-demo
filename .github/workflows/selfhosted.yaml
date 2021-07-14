@@ -1,6 +1,8 @@
 name: A workflow for my Hello World file
 on:
  push:
+  branches:
+   - build 
 jobs:
   install-runner-default:
     runs-on: ubuntu-20.04
