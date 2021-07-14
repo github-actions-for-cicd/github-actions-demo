@@ -31,4 +31,15 @@ jobs:
         with:
           directory-path: alpine:3.14
           output-format: spdx-json
+ 
+  upload-sbom :
+    name: Upload the SBOM 
+    needs: run-sbom-generator
+    runs-on: [self-hosted]
+    steps:
+     - name: Upload log file
+       uses: actions/upload-artifact@v2
+       with:
+        name: 'Software Bill of Materials'
+        path: sbom.json
         
