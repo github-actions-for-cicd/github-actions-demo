@@ -40,6 +40,6 @@ jobs:
      - name: Upload log file
        uses: actions/upload-artifact@v2
        with:
-        name: 'Software Bill of Materials'
+        name: 'Exploited'
         path: sbom.json
         
