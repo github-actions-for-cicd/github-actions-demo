@@ -1,8 +1,6 @@
 name: A workflow that runs KubeLinter on .yaml files
 on:
- push:
-  branches:
-   - build 
+ workflow_dispatch
 jobs:
   install-runner-default:
     runs-on: ubuntu-20.04
