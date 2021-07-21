@@ -1,5 +1,6 @@
 name: A workflow that tests SBOM generation on selfhosted runners
-on: push
+on:
+  workflow_dispatch
 jobs: 
   install-runner-default:
     runs-on: ubuntu-20.04
@@ -30,7 +31,7 @@ jobs:
         uses: github-actions-for-cicd/syft-action@main
         with:
           directory-path: alpine:3.14
-          output-format: spdx-json
+          output-format: table
  
   upload-sbom :
     name: Upload the SBOM 
