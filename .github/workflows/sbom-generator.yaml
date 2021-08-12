@@ -34,7 +34,7 @@ jobs:
           output-format: table
  
   upload-sbom :
-    name: Upload the SBOM 
+    name: Upload the SBOM - Add to test app
     needs: run-sbom-generator
     runs-on: [self-hosted]
     steps:
